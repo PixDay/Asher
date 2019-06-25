@@ -22,6 +22,9 @@ class ObjectManager
         ~ObjectManager() = default;
 
         void draw(void);
+        void setSize(unsigned int x, unsigned int y, std::string string);
+        void setSize(unsigned int x, unsigned int y, std::string &string);
+        sf::RenderWindow *getWindow() const;
 
     private:
         sf::RenderWindow *_window;

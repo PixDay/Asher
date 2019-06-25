@@ -24,3 +24,14 @@ void ObjectManager::draw(void)
 {
     std::cout << "this magic shit should draw everything ! " << std::endl;
 }
+
+void ObjectManager::setSize(unsigned int x, unsigned int y, std::string string)
+{
+    delete this->_window;
+    this->_window = new sf::RenderWindow(sf::VideoMode(x, y), string);
+}
+
+sf::RenderWindow *ObjectManager::getWindow() const
+{
+    return this->_window;
+}

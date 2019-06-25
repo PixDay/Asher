@@ -16,26 +16,31 @@
 class Object
 {
     public:
+        Object() = delete;
+
     /* SETTERS */
-        virtual void setTexture(std::string &string) = 0;
-        virtual void setTexture(std::string string) = 0;
-        virtual void setPosition(sf::Vector2f &position) = 0;
-        virtual void setPosition(sf::Vector2f position) = 0;
-        virtual void setPosition(sf::Vector2i &position) = 0;
-        virtual void setPosition(sf::Vector2i position) = 0;
-        virtual void setScale(sf::Vector2f &scale) = 0;
-        virtual void setScale(sf::Vector2f scale) = 0;
-        virtual void setScale(sf::Vector2i &scale) = 0;
-        virtual void setScale(sf::Vector2i scale) = 0;
-        virtual void setHitbox(sf::IntRect &hitbox) = 0;
-        virtual void setHitbox(sf::IntRect hitbox) = 0;
+        void setTexture(std::string &string);
+        void setTexture(std::string string);
+        void setPosition(sf::Vector2f &position);
+        void setPosition(sf::Vector2f position);
+        void setPosition(sf::Vector2i &position);
+        void setPosition(sf::Vector2i position);
+        void setScale(sf::Vector2f &scale);
+        void setScale(sf::Vector2f scale);
+        void setScale(sf::Vector2i &scale);
+        void setScale(sf::Vector2i scale);
+        void setHitbox(sf::IntRect &hitbox);
+        void setHitbox(sf::IntRect hitbox);
+        void setAngle(float angle);
+        void setSpeed(unsigned int speed);
 
     /* GETTERS */
-        virtual sf::Sprite getSprite(void) const = 0;
-        virtual sf::Vector2f getPosition(void) const = 0;
-        virtual sf::Vector2f getScale(void) const = 0;
-        virtual sf::IntRect getHitbox(void) const = 0;
-        virtual bool hasAnimator(void) const = 0;
+        sf::Sprite getSprite(void) const;
+        sf::Vector2f getPosition(void) const;
+        sf::Vector2f getScale(void) const;
+        sf::IntRect getHitbox(void) const;
+        float getAngle() const;
+        bool hasAnimator(void) const;
 
     /* UTILIIES */
         virtual void draw(void) = 0;
@@ -46,5 +51,7 @@ class Object
         sf::Vector2f _position;
         sf::Vector2f _scale;
         sf::IntRect _hitbox;
+        float _angle;
+        unsigned int _speed;
         bool _animator;
 };

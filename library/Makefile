@@ -5,7 +5,8 @@
 ## Adrien Colombier
 ##
 
-SRCS	=	source/ObjectManager.cpp	
+SRCS	=	source/Object.cpp 			\
+			source/ObjectManager.cpp
 
 OBJ	=	${SRCS:.cpp=.o}
 
