@@ -1,6 +1,6 @@
 /*
 ** Merline, 2019
-** Ui.hpp
+** Player.hpp
 ** File description:
 ** Adrien Colombier
 */
@@ -8,13 +8,13 @@
 #pragma once
 
 /* INCLUDES */
-
 #include "Object.hpp"
 
-/* CLASS */
-
-class Ui : public Object
+class Player : public Object
 {
     public:
-        Ui() = delete;
+        Player();
+        ~Player() = default;
+
+        void draw();
 };

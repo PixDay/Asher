@@ -53,5 +53,6 @@ class Object
         sf::IntRect _hitbox;
         float _angle;
         unsigned int _speed;
+        bool _hover;
         bool _animator;
 };
