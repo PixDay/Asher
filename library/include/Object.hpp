@@ -16,26 +16,21 @@
 class Object
 {
     public:
-        Object() = delete;
-
     /* SETTERS */
-        void setTexture(std::string &string);
-        void setTexture(std::string string);
-        void setPosition(sf::Vector2f &position);
-        void setPosition(sf::Vector2f position);
-        void setPosition(sf::Vector2i &position);
-        void setPosition(sf::Vector2i position);
-        void setScale(sf::Vector2f &scale);
-        void setScale(sf::Vector2f scale);
-        void setScale(sf::Vector2i &scale);
-        void setScale(sf::Vector2i scale);
-        void setHitbox(sf::IntRect &hitbox);
-        void setHitbox(sf::IntRect hitbox);
-        void setAngle(float angle);
-        void setSpeed(unsigned int speed);
+        void setTexture(std::string const &string);
+        void setPosition(sf::Vector2f const &position);
+        void setPosition(sf::Vector2i const &position);
+        void setScale(sf::Vector2f const &scale);
+        void setScale(sf::Vector2i const &scale);
+        void setOrigin(sf::Vector2f const &origin);
+        void setHitbox(sf::IntRect const &hitbox);
+        void setAngle(float const &angle);
+        void setSpeed(unsigned int const &speed);
+        void setLayout(unsigned int const &layout);
 
     /* GETTERS */
         sf::Sprite getSprite(void) const;
+        sf::Texture getTexture(void) const;
         sf::Vector2f getPosition(void) const;
         sf::Vector2f getScale(void) const;
         sf::IntRect getHitbox(void) const;
@@ -50,9 +45,11 @@ class Object
         sf::Texture _texture;
         sf::Vector2f _position;
         sf::Vector2f _scale;
+        sf::Vector2f _origin;
         sf::IntRect _hitbox;
         float _angle;
         unsigned int _speed;
+        unsigned int _layout;
         bool _hover;
         bool _animator;
 };

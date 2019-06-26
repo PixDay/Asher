@@ -24,6 +24,7 @@ class ObjectManager
         void draw(void);
         void setSize(unsigned int x, unsigned int y, std::string string);
         void setSize(unsigned int x, unsigned int y, std::string &string);
+        void addObject(Object *object);
         sf::RenderWindow *getWindow() const;
 
     private:

@@ -19,4 +19,5 @@ class Button : public Ui
         virtual void onClick();
         virtual void onHover();
     private:
+        std::string _name;
 };

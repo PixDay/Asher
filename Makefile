@@ -7,7 +7,8 @@
 
 CC	=	g++
 
-SRC	=	source/main.cpp
+SRC	=	source/main.cpp		\
+		source/Player.cpp
 
 OBJECTS =	${SRC:.cpp=.o}
 

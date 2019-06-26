@@ -8,7 +8,8 @@
 #pragma once
 
 /* INCLUDES */
-#include "Object.hpp"
+#include <vector>
+#include "../library/include/merline.h"
 
 class Player : public Object
 {
@@ -17,4 +18,7 @@ class Player : public Object
         ~Player() = default;
 
         void draw();
+        void autoManage();
+    private:
+        const std::vector<std::string> _skins;
 };
