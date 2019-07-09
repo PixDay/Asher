@@ -10,6 +10,7 @@
 /* INCLUDES */
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 /* CLASS */
 
@@ -24,7 +25,8 @@ class Object
         void setScale(sf::Vector2i const &scale);
         void setOrigin(sf::Vector2f const &origin);
         void setHitbox(sf::IntRect const &hitbox);
-        void setAngle(float const &angle);
+        void setAngle(float const angle);
+        void setAngle(sf::Vector2f const &target);
         void setSpeed(unsigned int const &speed);
         void setLayout(unsigned int const &layout);
 

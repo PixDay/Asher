@@ -5,6 +5,7 @@
 ** Adrien Colombier
 */
 
+#include <iostream>
 #include "../include/Object.hpp"
 
 void Object::setTexture(std::string const &string)
@@ -54,9 +55,23 @@ void Object::setHitbox(sf::IntRect const &hitbox)
     this->_hitbox.height = hitbox.height;
 }
 
-void Object::setAngle(float const &angle)
+void Object::setAngle(float const angle)
 {
     this->_angle = angle;
+    this->_sprite.setRotation(this->_angle);
+}
+
+void Object::setAngle(sf::Vector2f const &target)
+{
+    float oppose = target.x - this->getPosition().x;
+    float adjacent = target.y - this->getPosition().y;
+    float angle = 0.0f;
+
+    adjacent = (adjacent == 0) ? 1 : adjacent;
+    angle = atanf(oppose / adjacent);
+    angle = angle * 180  / M_PI;
+    angle = (adjacent < 0) ? -angle : angle + 2 * (90.0f - angle);
+    this->setAngle(angle);
 }
 
 void Object::setSpeed(unsigned int const &speed)

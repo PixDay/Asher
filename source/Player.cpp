@@ -35,5 +35,6 @@ void Player::draw()
 
 void Player::autoManage()
 {
-    std::cout << "player brain" << std::endl;
+    sf::Vector2f target(200.0f, 200.0f);
+    this->setAngle(target);
 }

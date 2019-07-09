@@ -23,8 +23,8 @@ ObjectManager::ObjectManager(std::string string)
 void ObjectManager::draw(void)
 {
     this->_window->clear(sf::Color::Black);
-    for (size_t i = 0; i < this->_objects.size(); i++) {
-        this->_window->draw(this->_objects[i]->getSprite());
+    for (auto object : this->_objects) {
+        this->_window->draw(object->getSprite());
     }
     this->_window->display();
 }
