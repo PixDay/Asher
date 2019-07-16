@@ -25,6 +25,7 @@ void ObjectManager::draw(void)
     this->_window->clear(sf::Color::Black);
     for (auto object : this->_objects) {
         this->_window->draw(object->getSprite());
+        object->autoManage();
     }
     this->_window->display();
 }

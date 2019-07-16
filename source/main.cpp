@@ -21,6 +21,5 @@ int main(int argc, char **argv, char **env)
             manager.draw();
         }
     }
-    manager.draw();
     return EXIT_SUCCESS;
 }

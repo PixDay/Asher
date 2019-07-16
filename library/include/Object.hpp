@@ -41,7 +41,8 @@ class Object
 
     /* UTILIIES */
         virtual void draw(void) = 0;
-
+        virtual void autoManage() = 0;
+        
     private:
         sf::Sprite _sprite;
         sf::Texture _texture;

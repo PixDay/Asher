@@ -17,4 +17,7 @@ class Ui : public Object
 {
     public:
         Ui() = delete;
+
+        /* UTILIIES */
+        virtual void autoManage();
 };
