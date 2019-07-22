@@ -11,10 +11,10 @@ int main(int argc, char **argv, char **env)
 {
     (void)argc, (void)argv, (void)env;
     ObjectManager manager("Asher");
+    sf::Event event;
 
-    manager.addObject(new Player());
+    manager.addObject(new Player(manager));
     while (manager.getWindow()->isOpen()) {
-        sf::Event event;
         while (manager.getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 manager.getWindow()->close();

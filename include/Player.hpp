@@ -14,11 +14,16 @@
 class Player : public Object
 {
     public:
-        Player();
+        Player(ObjectManager &manager);
         ~Player() = default;
 
         void draw();
         void autoManage();
+        void updateCursor();
     private:
+        size_t _skin;
         const std::vector<std::string> _skins;
+        sf::RenderWindow *_window;
+        Cursor *_cursor;
+        sf::Mouse _mouse;
 };

@@ -12,17 +12,19 @@ ObjectManager::ObjectManager(std::string &string)
 {
     this->_window = new sf::RenderWindow(sf::VideoMode(1366, 768), string);
     std::cout << "create window with " << string << " as name !" << std::endl;
+    this->_window->setMouseCursorVisible(false);
 }
 
 ObjectManager::ObjectManager(std::string string)
 {
     this->_window = new sf::RenderWindow(sf::VideoMode(1366, 768), string);
     std::cout << "create window with " << string << " as name !" << std::endl;
+    this->_window->setMouseCursorVisible(false);
 }
 
 void ObjectManager::draw(void)
 {
-    this->_window->clear(sf::Color::Black);
+    this->_window->clear(sf::Color::White);
     for (auto object : this->_objects) {
         this->_window->draw(object->getSprite());
         object->autoManage();
