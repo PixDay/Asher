@@ -24,7 +24,9 @@ ObjectManager::ObjectManager(std::string string)
 
 void ObjectManager::draw(void)
 {
-    this->_window->clear(sf::Color::White);
+    sf::Color background(100, 100, 100, 255);
+    
+    this->_window->clear(background);
     for (auto object : this->_objects) {
         this->_window->draw(object->getSprite());
         object->autoManage();

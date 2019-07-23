@@ -9,7 +9,7 @@
 #include "../include/Cursor.hpp"
 
 Cursor::Cursor() :
-    _skin(7),
+    _skin(11),
     _skins({"image/crosshair/crosshair001.png", "image/crosshair/crosshair002.png",
     "image/crosshair/crosshair003.png", "image/crosshair/crosshair004.png",
     "image/crosshair/crosshair005.png", "image/crosshair/crosshair006.png",
