@@ -74,7 +74,7 @@ void Object::setAngle(sf::Vector2f const &target)
     this->setAngle(angle);
 }
 
-void Object::setSpeed(unsigned int const &speed)
+void Object::setSpeed(float const &speed)
 {
     this->_speed = speed;
 }
@@ -112,6 +112,11 @@ sf::IntRect Object::getHitbox(void) const
 float Object::getAngle() const
 {
     return this->_angle;
+}
+
+float Object::getSpeed() const
+{
+    return this->_speed;
 }
 
 bool Object::hasAnimator(void) const

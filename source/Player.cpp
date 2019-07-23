@@ -27,6 +27,7 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[13]);
     this->setOrigin(origin);
     this->setScale(scale);
+    this->setSpeed(1.5f);
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();
     manager.addObject(this->_cursor);
@@ -38,7 +39,7 @@ void Player::draw()
 
 void Player::autoManage()
 {
-    sf::Vector2f target(200.0f, 200.0f);
+    this->updateMove();
     this->updateCursor();
     this->setAngle(this->_cursor->getPosition());
 }
@@ -46,4 +47,32 @@ void Player::autoManage()
 void Player::updateCursor()
 {
     this->_cursor->setPosition(this->_mouse.getPosition(*this->_window));
+}
+
+void Player::updateMove()
+{
+    sf::Vector2f position = this->getPosition();
+
+    if (this->_moveClock.getElapsedTime().asSeconds() >= 0.01f) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            position.x = position.x - this->getSpeed();
+            this->setPosition(position);
+            this->_moveClock.restart();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            position.x = position.x + this->getSpeed();
+            this->setPosition(position);
+            this->_moveClock.restart();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            position.y += this->getSpeed();
+            this->setPosition(position);
+            this->_moveClock.restart();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            position.y -= this->getSpeed();
+            this->setPosition(position);
+            this->_moveClock.restart();
+        }
+    }
 }

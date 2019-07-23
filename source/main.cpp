@@ -18,8 +18,8 @@ int main(int argc, char **argv, char **env)
         while (manager.getWindow()->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 manager.getWindow()->close();
-            manager.draw();
         }
+        manager.draw();
     }
     return EXIT_SUCCESS;
 }

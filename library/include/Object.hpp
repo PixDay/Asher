@@ -27,7 +27,7 @@ class Object
         void setHitbox(sf::IntRect const &hitbox);
         void setAngle(float const angle);
         void setAngle(sf::Vector2f const &target);
-        void setSpeed(unsigned int const &speed);
+        void setSpeed(float const &speed);
         void setLayout(unsigned int const &layout);
 
     /* GETTERS */
@@ -37,6 +37,7 @@ class Object
         sf::Vector2f getScale(void) const;
         sf::IntRect getHitbox(void) const;
         float getAngle() const;
+        float getSpeed() const;
         bool hasAnimator(void) const;
 
     /* UTILIIES */
@@ -51,7 +52,7 @@ class Object
         sf::Vector2f _origin;
         sf::IntRect _hitbox;
         float _angle;
-        unsigned int _speed;
+        float _speed;
         unsigned int _layout;
         bool _hover;
         bool _animator;

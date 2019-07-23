@@ -20,10 +20,12 @@ class Player : public Object
         void draw();
         void autoManage();
         void updateCursor();
+        void updateMove();
     private:
         size_t _skin;
         const std::vector<std::string> _skins;
         sf::RenderWindow *_window;
         Cursor *_cursor;
         sf::Mouse _mouse;
+        sf::Clock _moveClock;
 };
