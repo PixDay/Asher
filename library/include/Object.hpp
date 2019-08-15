@@ -29,6 +29,7 @@ class Object
         void setAngle(sf::Vector2f const &target);
         void setSpeed(float const &speed);
         void setLayout(unsigned int const &layout);
+        void setDisplay(bool const &display);
 
     /* GETTERS */
         sf::Sprite getSprite(void) const;
@@ -36,9 +37,10 @@ class Object
         sf::Vector2f getPosition(void) const;
         sf::Vector2f getScale(void) const;
         sf::IntRect getHitbox(void) const;
-        float getAngle() const;
-        float getSpeed() const;
+        float getAngle(void) const;
+        float getSpeed(void) const;
         bool hasAnimator(void) const;
+        bool getDisplay(void) const;
 
     /* UTILIIES */
         virtual void draw(void) = 0;
@@ -56,4 +58,5 @@ class Object
         unsigned int _layout;
         bool _hover;
         bool _animator;
+        bool _display;
 };

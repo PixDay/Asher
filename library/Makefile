@@ -7,7 +7,8 @@
 
 SRCS	=	source/Object.cpp 			\
 			source/ObjectManager.cpp	\
-			source/Cursor.cpp
+			source/Cursor.cpp			\
+			source/Bullet.cpp
 
 OBJ	=	${SRCS:.cpp=.o}
 

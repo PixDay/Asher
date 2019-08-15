@@ -17,7 +17,8 @@ Player::Player(ObjectManager &manager) :
     "image/skin/redSkin.png", "image/skin/negatifBlueSkin.png",
     "image/skin/negatifCyanSkin.png", "image/skin/negatifGreenSkin.png",
     "image/skin/negatifJauneSkin.png", "image/skin/negatifMagentaSkin.png",
-    "image/skin/negatifRedSkin.png"})
+    "image/skin/negatifRedSkin.png"}),
+    _shoot(30)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
@@ -31,6 +32,10 @@ Player::Player(ObjectManager &manager) :
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();
     manager.addObject(this->_cursor);
+    for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
+        this->_bullets.push_back(new Bullet());
+    for (auto bullet : this->_bullets)
+        manager.addObject(bullet);
 }
 
 void Player::draw()

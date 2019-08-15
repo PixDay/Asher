@@ -84,6 +84,11 @@ void Object::setLayout(unsigned int const &layout)
     this->_layout = layout;
 }
 
+void Object::setDisplay(bool const &display)
+{
+    this->_display = display;
+}
+
 sf::Sprite Object::getSprite(void) const
 {
     return this->_sprite;
@@ -109,12 +114,12 @@ sf::IntRect Object::getHitbox(void) const
     return this->_hitbox;
 }
 
-float Object::getAngle() const
+float Object::getAngle(void) const
 {
     return this->_angle;
 }
 
-float Object::getSpeed() const
+float Object::getSpeed(void) const
 {
     return this->_speed;
 }
@@ -122,4 +127,9 @@ float Object::getSpeed() const
 bool Object::hasAnimator(void) const
 {
     return this->_animator;
+}
+
+bool Object::getDisplay(void) const
+{
+    return this->_display;
 }

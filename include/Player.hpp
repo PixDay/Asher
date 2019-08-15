@@ -24,6 +24,8 @@ class Player : public Object
     private:
         size_t _skin;
         const std::vector<std::string> _skins;
+        size_t _shoot;
+        std::vector<Bullet *> _bullets;
         sf::RenderWindow *_window;
         Cursor *_cursor;
         sf::Mouse _mouse;
