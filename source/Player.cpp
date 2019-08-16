@@ -18,7 +18,8 @@ Player::Player(ObjectManager &manager) :
     "image/skin/negatifCyanSkin.png", "image/skin/negatifGreenSkin.png",
     "image/skin/negatifJauneSkin.png", "image/skin/negatifMagentaSkin.png",
     "image/skin/negatifRedSkin.png"}),
-    _shoot(30)
+    _shoot(30),
+    _currentBullet(0)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
@@ -28,7 +29,8 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
-    this->setSpeed(1.5f);
+    this->setSpeed(2.5f);
+    this->setDisplay(true);
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();
     manager.addObject(this->_cursor);
@@ -47,6 +49,9 @@ void Player::autoManage()
     this->updateMove();
     this->updateCursor();
     this->setAngle(this->_cursor->getPosition());
+    this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
+    this->_bullets[this->_currentBullet]->setDisplay(true);
+    this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
 }
 
 void Player::updateCursor()

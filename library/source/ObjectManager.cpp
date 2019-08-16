@@ -28,7 +28,8 @@ void ObjectManager::draw(void)
     
     this->_window->clear(background);
     for (auto object : this->_objects) {
-        this->_window->draw(object->getSprite());
+        if (object->getDisplay())
+            this->_window->draw(object->getSprite());
         object->autoManage();
     }
     this->_window->display();

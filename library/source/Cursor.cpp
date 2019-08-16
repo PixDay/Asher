@@ -29,6 +29,7 @@ Cursor::Cursor() :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
+    this->setDisplay(true);
 }
 
 void Cursor::draw()

@@ -25,6 +25,7 @@ class Player : public Object
         size_t _skin;
         const std::vector<std::string> _skins;
         size_t _shoot;
+        size_t _currentBullet;
         std::vector<Bullet *> _bullets;
         sf::RenderWindow *_window;
         Cursor *_cursor;
