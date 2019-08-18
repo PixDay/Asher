@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
     manager.addObject(new Player(manager));
     while (manager.getWindow()->isOpen()) {
         while (manager.getWindow()->pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 manager.getWindow()->close();
         }
         manager.draw();

@@ -29,7 +29,7 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
-    this->setSpeed(2.5f);
+    this->setSpeed(3.5f);
     this->setDisplay(true);
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();

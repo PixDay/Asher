@@ -17,9 +17,10 @@ ObjectManager::ObjectManager(std::string &string)
 
 ObjectManager::ObjectManager(std::string string)
 {
-    this->_window = new sf::RenderWindow(sf::VideoMode(1366, 768), string);
+    this->_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), string, sf::Style::Fullscreen);
     std::cout << "create window with " << string << " as name !" << std::endl;
     this->_window->setMouseCursorVisible(false);
+    this->_window->setVerticalSyncEnabled(true);
 }
 
 void ObjectManager::draw(void)
