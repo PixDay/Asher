@@ -19,9 +19,11 @@ class Player : public Object
 
         void draw();
         void autoManage();
+    private:
         void updateCursor();
         void updateMove();
-    private:
+        void updateBullet(sf::Vector2f const &cursor);
+
         size_t _skin;
         const std::vector<std::string> _skins;
         size_t _shoot;
@@ -31,4 +33,5 @@ class Player : public Object
         Cursor *_cursor;
         sf::Mouse _mouse;
         sf::Clock _moveClock;
+        sf::Clock _shootClock;
 };

@@ -10,7 +10,7 @@
 
 Bullet::Bullet() :
     _direction({0.0f, 0.0f}),
-    _distance(0.0f),
+    _distance(500.0f),
     _skin(0),
     _skins({"image/shot/shotThin.png", "image/shot/shotLarge.png",
     "image/shot/shotOrange.png", "image/shot/shotRed.png"})
@@ -30,4 +30,14 @@ void Bullet::draw()
 
 void Bullet::autoManage()
 {
+    sf::Vector2f tmp = this->getPosition();
+
+    tmp.x += this->_direction.x;
+    tmp.y += this->_direction.y;
+    this->setPosition(tmp);
+}
+
+void Bullet::setDirection(sf::Vector2f const &direction)
+{
+    this->_direction = direction;
 }

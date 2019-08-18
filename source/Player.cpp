@@ -49,9 +49,7 @@ void Player::autoManage()
     this->updateMove();
     this->updateCursor();
     this->setAngle(this->_cursor->getPosition());
-    this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
-    this->_bullets[this->_currentBullet]->setDisplay(true);
-    this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
+    this->updateBullet(this->_cursor->getPosition());
 }
 
 void Player::updateCursor()
@@ -84,5 +82,21 @@ void Player::updateMove()
             this->setPosition(position);
             this->_moveClock.restart();
         }
+    }
+}
+
+void Player::updateBullet(sf::Vector2f const &cursor)
+{
+    this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
+    this->_bullets[this->_currentBullet]->setDisplay(true);
+    this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.25f) {
+        sf::Vector2f tmp = cursor;
+        tmp.x /= 10.0f;
+        tmp.y /= 10.0f;
+        this->_bullets[this->_currentBullet]->setDirection(tmp);
+        this->_currentBullet++;
+        this->_currentBullet = (this->_currentBullet == this->_shoot) ? 0 : this->_currentBullet;
+        this->_shootClock.restart();
     }
 }

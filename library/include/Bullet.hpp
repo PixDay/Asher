@@ -21,6 +21,7 @@ class Bullet : public Object
 
         void draw();
         void autoManage();
+        void setDirection(sf::Vector2f const &direction);
     private:
         sf::Vector2f _direction;
         float _distance;
