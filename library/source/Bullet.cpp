@@ -9,6 +9,8 @@
 #include "../include/Bullet.hpp"
 
 Bullet::Bullet() :
+    _direction({0.0f, 0.0f}),
+    _distance(0.0f),
     _skin(0),
     _skins({"image/shot/shotThin.png", "image/shot/shotLarge.png",
     "image/shot/shotOrange.png", "image/shot/shotRed.png"})

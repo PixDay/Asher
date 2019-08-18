@@ -22,6 +22,8 @@ class Bullet : public Object
         void draw();
         void autoManage();
     private:
+        sf::Vector2f _direction;
+        float _distance;
         size_t _skin;
         const std::vector<std::string> _skins;
 };
