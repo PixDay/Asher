@@ -90,11 +90,12 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
     this->_bullets[this->_currentBullet]->setDisplay(true);
     this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.25f) {
-        sf::Vector2f tmp = cursor;
-        tmp.x /= 10.0f;
-        tmp.y /= 10.0f;
-        this->_bullets[this->_currentBullet]->setDirection(tmp);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.025f) {
+        sf::Vector2f tmpC = cursor;
+        sf::Vector2f tmpV = this->getPosition();
+        tmpV.x = (tmpV.x - tmpC.x) * (-1.0f) / 30.0f;
+        tmpV.y = (tmpV.y - tmpC.y) * (-1.0f) / 30.0f;
+        this->_bullets[this->_currentBullet]->setDirection(tmpV);
         this->_currentBullet++;
         this->_currentBullet = (this->_currentBullet == this->_shoot) ? 0 : this->_currentBullet;
         this->_shootClock.restart();

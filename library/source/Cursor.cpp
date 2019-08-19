@@ -24,7 +24,7 @@ Cursor::Cursor() :
     "image/crosshair/crosshair023.png", "image/crosshair/crosshair024.png"})
 {
     sf::Vector2f origin = {64.0f, 64.0f};
-    sf::Vector2f scale = {0.25f, 0.25f};
+    sf::Vector2f scale = {0.525f, 0.525f};
 
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
