@@ -87,15 +87,18 @@ void Player::updateMove()
 
 void Player::updateBullet(sf::Vector2f const &cursor)
 {
+    sf::Vector2f tmpC = cursor;
+    sf::Vector2f tmpV = this->getPosition();
+    sf::Vector2f res;
+
     this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
     this->_bullets[this->_currentBullet]->setDisplay(true);
     this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.025f) {
-        sf::Vector2f tmpC = cursor;
-        sf::Vector2f tmpV = this->getPosition();
-        tmpV.x = (tmpV.x - tmpC.x) * (-1.0f) / 30.0f;
-        tmpV.y = (tmpV.y - tmpC.y) * (-1.0f) / 30.0f;
-        this->_bullets[this->_currentBullet]->setDirection(tmpV);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.25f) {
+        float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
+        res.x = (tmpC.x - tmpV.x) / somme * 10;
+        res.y = (tmpC.y - tmpV.y) / somme * 10;
+        this->_bullets[this->_currentBullet]->setDirection(res);
         this->_currentBullet++;
         this->_currentBullet = (this->_currentBullet == this->_shoot) ? 0 : this->_currentBullet;
         this->_shootClock.restart();
