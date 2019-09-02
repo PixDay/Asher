@@ -94,12 +94,12 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.3f) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->_shootClock.getElapsedTime().asSeconds() >= 0.3f) {
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
-        res.x = (tmpC.x - tmpV.x) / somme * 10;
-        res.y = (tmpC.y - tmpV.y) / somme * 10;
+        res.x = (tmpC.x - tmpV.x) / somme * this->_bullets[this->_currentBullet]->getSpeed();
+        res.y = (tmpC.y - tmpV.y) / somme * this->_bullets[this->_currentBullet]->getSpeed();
         this->_bullets[this->_currentBullet]->setDirection(res);
         this->_currentBullet++;
         this->_currentBullet = (this->_currentBullet == this->_shoot) ? 0 : this->_currentBullet;

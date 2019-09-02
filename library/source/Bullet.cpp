@@ -22,6 +22,7 @@ Bullet::Bullet() :
     //this->setOrigin(origin);
     this->setScale(scale);
     this->setDisplay(false);
+    this->setSpeed(15.0f);
 }
 
 void Bullet::draw()
