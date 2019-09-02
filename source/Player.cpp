@@ -18,7 +18,7 @@ Player::Player(ObjectManager &manager) :
     "image/skin/negatifCyanSkin.png", "image/skin/negatifGreenSkin.png",
     "image/skin/negatifJauneSkin.png", "image/skin/negatifMagentaSkin.png",
     "image/skin/negatifRedSkin.png"}),
-    _shoot(30),
+    _shoot(60),
     _currentBullet(0)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
@@ -91,10 +91,12 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     sf::Vector2f tmpV = this->getPosition();
     sf::Vector2f res;
 
-    this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
-    this->_bullets[this->_currentBullet]->setDisplay(true);
-    this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.25f) {
+    for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
+        if (this->_bullets[bullet_number]->getDisplay() == false)
+            this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.02f) {
+        this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
+        this->_bullets[this->_currentBullet]->setDisplay(true);
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
         res.x = (tmpC.x - tmpV.x) / somme * 10;
         res.y = (tmpC.y - tmpV.y) / somme * 10;
