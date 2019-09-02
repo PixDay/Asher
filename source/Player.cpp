@@ -18,7 +18,7 @@ Player::Player(ObjectManager &manager) :
     "image/skin/negatifCyanSkin.png", "image/skin/negatifGreenSkin.png",
     "image/skin/negatifJauneSkin.png", "image/skin/negatifMagentaSkin.png",
     "image/skin/negatifRedSkin.png"}),
-    _shoot(60),
+    _shoot(10),
     _currentBullet(0)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
@@ -62,22 +62,22 @@ void Player::updateMove()
     sf::Vector2f position = this->getPosition();
 
     if (this->_moveClock.getElapsedTime().asSeconds() >= 0.008f) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && this->getPosition().x >= 50.0f) {
             position.x = position.x - this->getSpeed();
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && this->getPosition().x <= 1870.0f) {
             position.x = position.x + this->getSpeed();
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && this->getPosition().y <= 1030) {
             position.y += this->getSpeed();
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->getPosition().y >= 50.0f) {
             position.y -= this->getSpeed();
             this->setPosition(position);
             this->_moveClock.restart();
@@ -94,7 +94,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.02f) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->_shootClock.getElapsedTime().asSeconds() >= 0.3f) {
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
