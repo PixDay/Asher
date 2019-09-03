@@ -11,15 +11,16 @@
 
 #include <vector>
 #include "Object.hpp"
+#include "ObjectManager.hpp"
+#include "Tile.hpp"
 
 /* CLASS */
 
 class MapManager
 {
     public:
-        MapManager();
+        MapManager(ObjectManager &manager);
         ~MapManager() = default;
-
     private:
-        std::vector<Object *> _tiles;
+        std::vector<Tile *> _tiles;
 };

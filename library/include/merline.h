@@ -1,5 +1,7 @@
 #include "Object.hpp"
 #include "ObjectManager.hpp"
 #include "SceneManager.hpp"
+#include "MapManager.hpp"
 #include "Cursor.hpp"
 #include "Bullet.hpp"
+#include "Tile.hpp"

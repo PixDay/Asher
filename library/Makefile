@@ -7,8 +7,10 @@
 
 SRCS	=	source/Object.cpp 			\
 			source/ObjectManager.cpp	\
+			source/MapManager.cpp		\
 			source/Cursor.cpp			\
-			source/Bullet.cpp
+			source/Bullet.cpp			\
+			source/Tile.cpp
 
 OBJ	=	${SRCS:.cpp=.o}
 

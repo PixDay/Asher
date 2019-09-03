@@ -11,6 +11,7 @@ int main(int argc, char **argv, char **env)
 {
     (void)argc, (void)argv, (void)env;
     ObjectManager manager("Asher");
+    MapManager map(manager);
     sf::Event event;
 
     manager.addObject(new Player(manager));
