@@ -10,7 +10,7 @@
 
 Bullet::Bullet() :
     _direction({0.0f, 0.0f}),
-    _distance(650.0f),
+    _distance(1000.0f),
     _skin(0),
     _skins({"image/shot/shotThin.png", "image/shot/shotLarge.png",
     "image/shot/shotOrange.png", "image/shot/shotRed.png"})
@@ -35,10 +35,10 @@ void Bullet::autoManage()
 
     tmp.x += this->_direction.x;
     tmp.y += this->_direction.y;
-    this->_distance = this->_distance - (std::abs(this->_direction.x) + std::abs(this->_direction.y));
+    this->_distance = this->_distance - (std::sqrt(this->_direction.x * this->_direction.x + this->_direction.y * this->_direction.y));
     if (this->_distance <= 0.0f) {
         this->setDisplay(false);
-        this->_distance = 650.0f;
+        this->_distance = 1000.0f;
         this->_direction.x = 0.0f;
         this->_direction.y = 0.0f;
     }

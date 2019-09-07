@@ -18,7 +18,7 @@ Player::Player(ObjectManager &manager) :
     "image/skin/negatifCyanSkin.png", "image/skin/negatifGreenSkin.png",
     "image/skin/negatifJauneSkin.png", "image/skin/negatifMagentaSkin.png",
     "image/skin/negatifRedSkin.png"}),
-    _shoot(10),
+    _shoot(30),
     _currentBullet(0)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
@@ -94,7 +94,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->_shootClock.getElapsedTime().asSeconds() >= 0.3f) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
