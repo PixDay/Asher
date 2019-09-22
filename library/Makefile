@@ -10,7 +10,8 @@ SRCS	=	source/Object.cpp 			\
 			source/MapManager.cpp		\
 			source/Cursor.cpp			\
 			source/Bullet.cpp			\
-			source/Tile.cpp
+			source/Tile.cpp				\
+			source/Glow.cpp
 
 OBJ	=	${SRCS:.cpp=.o}
 

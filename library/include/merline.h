@@ -5,3 +5,4 @@
 #include "Cursor.hpp"
 #include "Bullet.hpp"
 #include "Tile.hpp"
+#include "Glow.hpp"
