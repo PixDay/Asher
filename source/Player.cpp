@@ -116,7 +116,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
 
 void Player::updateGlow()
 {
-    if (this->_glowClock.getElapsedTime().asSeconds() >= 0.1) {
+    if (this->_glowClock.getElapsedTime().asSeconds() >= 0.05) {
         this->_glows[this->_currentGlow]->setPosition(this->getPosition());
         this->_glows[this->_currentGlow]->setAngle(this->getAngle());
         this->_currentGlow++;
