@@ -24,6 +24,7 @@ class Player : public Object
         void updateMove();
         void updateBullet(sf::Vector2f const &cursor);
         void updateGlow();
+        void rollBackSpell();
 
         size_t _skin;
         const std::vector<std::string> _skins;
@@ -31,6 +32,7 @@ class Player : public Object
         size_t _currentBullet;
         size_t _glow;
         size_t _currentGlow;
+        bool _rollback;
         std::vector<Bullet *> _bullets;
         std::vector<Glow *> _glows;
         sf::RenderWindow *_window;

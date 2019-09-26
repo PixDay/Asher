@@ -21,7 +21,8 @@ Player::Player(ObjectManager &manager) :
     _shoot(30),
     _currentBullet(0),
     _glow(30),
-    _currentGlow(0)
+    _currentGlow(0),
+    _rollback(false)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
@@ -31,7 +32,7 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
-    this->setSpeed(3.5f);
+    this->setSpeed(5.5f);
     this->setDisplay(true);
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();
@@ -52,11 +53,14 @@ void Player::draw()
 
 void Player::autoManage()
 {
-    this->updateMove();
-    this->updateCursor();
-    this->setAngle(this->_cursor->getPosition());
-    this->updateBullet(this->_cursor->getPosition());
-    this->updateGlow();
+    if (!this->_rollback) {
+        this->updateMove();
+        this->updateCursor();
+        this->setAngle(this->_cursor->getPosition());
+        this->updateBullet(this->_cursor->getPosition());
+        this->updateGlow();
+    }
+    this->rollBackSpell();
 }
 
 void Player::updateCursor()
@@ -116,11 +120,35 @@ void Player::updateBullet(sf::Vector2f const &cursor)
 
 void Player::updateGlow()
 {
-    if (this->_glowClock.getElapsedTime().asSeconds() >= 0.05) {
+    if (this->_glowClock.getElapsedTime().asSeconds() >= 0.1) {
         this->_glows[this->_currentGlow]->setPosition(this->getPosition());
         this->_glows[this->_currentGlow]->setAngle(this->getAngle());
+        this->_glows[this->_currentGlow]->setDisplay(true);
         this->_currentGlow++;
         this->_currentGlow = (this->_currentGlow == this->_glow) ? 0 : this->_currentGlow;
         this->_glowClock.restart();
+    }
+}
+
+void Player::rollBackSpell()
+{
+    static size_t rollTurn = 0;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !this->_rollback) {
+        this->_rollback = true;
+    }
+    if (this->_rollback) {
+        if (this->_glowClock.getElapsedTime().asSeconds() >= 0.2) {
+            if (rollTurn > 0)
+                this->setPosition(this->_glows[this->_currentGlow]->getPosition());
+            this->setAngle(this->_glows[this->_currentGlow]->getAngle());
+            this->_glows[this->_currentGlow]->setDisplay(false);
+            this->_currentGlow = (this->_currentGlow == 0) ? this->_glow - 1 : this->_currentGlow - 1;
+            rollTurn++;
+            if (rollTurn == this->_glow) {
+                this->_rollback = false;
+                rollTurn = 0;
+            }
+        }
     }
 }
