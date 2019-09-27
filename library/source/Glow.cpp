@@ -10,7 +10,7 @@
 
 Glow::Glow()
 {
-    sf::Vector2f scale = {0.2f, 0.2f};
+    sf::Vector2f scale = {0.25f, 0.25f};
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {-100.0f, 0.0f};
 

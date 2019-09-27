@@ -26,7 +26,7 @@ Player::Player(ObjectManager &manager) :
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
-    sf::Vector2f scale = {0.2f, 0.2f};
+    sf::Vector2f scale = {0.25f, 0.25f};
 
     this->setPosition(position);
     this->setTexture(this->_skins[this->_skin]);
@@ -138,12 +138,12 @@ void Player::rollBackSpell()
         this->_rollback = true;
     }
     if (this->_rollback) {
-        if (this->_glowClock.getElapsedTime().asSeconds() >= 0.2) {
-            if (rollTurn > 0)
-                this->setPosition(this->_glows[this->_currentGlow]->getPosition());
+        if (this->_glowClock.getElapsedTime().asSeconds() >= 0.3) {
+            this->_currentGlow = (this->_currentGlow == 0) ? this->_glow - 1 : this->_currentGlow - 1;
+            this->setPosition(this->_glows[this->_currentGlow]->getPosition());
             this->setAngle(this->_glows[this->_currentGlow]->getAngle());
             this->_glows[this->_currentGlow]->setDisplay(false);
-            this->_currentGlow = (this->_currentGlow == 0) ? this->_glow - 1 : this->_currentGlow - 1;
+            
             rollTurn++;
             if (rollTurn == this->_glow) {
                 this->_rollback = false;
