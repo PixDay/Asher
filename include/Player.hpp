@@ -9,6 +9,7 @@
 
 /* INCLUDES */
 #include <vector>
+#include <SFML/Audio.hpp>
 #include "../library/include/merline.h"
 
 class Player : public Object
@@ -41,4 +42,5 @@ class Player : public Object
         sf::Clock _moveClock;
         sf::Clock _shootClock;
         sf::Clock _glowClock;
+        sf::Music _shotSound;
 };

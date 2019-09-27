@@ -34,6 +34,7 @@ Player::Player(ObjectManager &manager) :
     this->setScale(scale);
     this->setSpeed(5.5f);
     this->setDisplay(true);
+    this->_shotSound.openFromFile("sound/spell/shot.wav");
     this->_cursor = new Cursor();
     this->_window = manager.getWindow();
     manager.addObject(this->_cursor);
@@ -106,6 +107,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
+        this->_shotSound.play();
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
@@ -138,7 +140,7 @@ void Player::rollBackSpell()
         this->_rollback = true;
     }
     if (this->_rollback) {
-        if (this->_glowClock.getElapsedTime().asSeconds() >= 0.3) {
+        if (this->_glowClock.getElapsedTime().asSeconds() >= 0.08) {
             this->_currentGlow = (this->_currentGlow == 0) ? this->_glow - 1 : this->_currentGlow - 1;
             this->setPosition(this->_glows[this->_currentGlow]->getPosition());
             this->setAngle(this->_glows[this->_currentGlow]->getAngle());

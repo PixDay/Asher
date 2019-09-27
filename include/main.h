@@ -6,4 +6,5 @@
 */
 
 #include <stdlib.h>
+#include <SFML/Audio.hpp>
 #include "Player.hpp"

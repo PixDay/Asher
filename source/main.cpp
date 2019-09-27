@@ -13,7 +13,11 @@ int main(int argc, char **argv, char **env)
     ObjectManager manager("Asher");
     MapManager map(manager);
     sf::Event event;
-
+    
+    sf::Music music;
+        music.openFromFile("sound/track/WarToWar.ogg");
+    music.play();
+    
     manager.addObject(new Player(manager));
     while (manager.getWindow()->isOpen()) {
         while (manager.getWindow()->pollEvent(event)) {
