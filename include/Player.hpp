@@ -42,5 +42,6 @@ class Player : public Object
         sf::Clock _moveClock;
         sf::Clock _shootClock;
         sf::Clock _glowClock;
+        sf::Clock _rollClock;
         sf::Music _shotSound;
 };

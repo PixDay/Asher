@@ -125,7 +125,8 @@ void Player::updateGlow()
     if (this->_glowClock.getElapsedTime().asSeconds() >= 0.1) {
         this->_glows[this->_currentGlow]->setPosition(this->getPosition());
         this->_glows[this->_currentGlow]->setAngle(this->getAngle());
-        this->_glows[this->_currentGlow]->setDisplay(true);
+        if (this->_rollClock.getElapsedTime().asSeconds() >= 10.0f - this->_glow * 0.1)
+            this->_glows[this->_currentGlow]->setDisplay(true);
         this->_currentGlow++;
         this->_currentGlow = (this->_currentGlow == this->_glow) ? 0 : this->_currentGlow;
         this->_glowClock.restart();
@@ -136,7 +137,7 @@ void Player::rollBackSpell()
 {
     static size_t rollTurn = 0;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !this->_rollback) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && !this->_rollback && this->_rollClock.getElapsedTime().asSeconds() >= 10.0f) {
         this->_rollback = true;
     }
     if (this->_rollback) {
@@ -149,6 +150,7 @@ void Player::rollBackSpell()
             rollTurn++;
             if (rollTurn == this->_glow) {
                 this->_rollback = false;
+                this->_rollClock.restart();
                 rollTurn = 0;
             }
         }
