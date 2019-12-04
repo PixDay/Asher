@@ -94,6 +94,7 @@ void Player::autoManage()
     this->changeWeapon();
     this->updateQuote();
     this->rollBackSpell();
+    this->updateEnnemy();
 }
 
 void Player::updateCursor()
@@ -267,6 +268,14 @@ void Player::updateSpeed()
     if (this->_soundSpeed == true && this->_speedClock.getElapsedTime().asSeconds() >= 3.0f) {
         this->_soundSpeed = false;
     }
+}
+
+void Player::updateEnnemy()
+{
+    for (auto ennemy : this->_ennemies) {
+        ennemy->setAngle(this->getPosition());
+    }
+
 }
 
 void Player::setForward(size_t forward)

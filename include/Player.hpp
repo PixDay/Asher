@@ -39,7 +39,7 @@ class Player : public Object
         void changeWeapon();
         void updateQuote();
         void updateSpeed();
-        void updateData();
+        void updateEnnemy();
 
         size_t getForward() const;
         size_t getBackward() const ;
