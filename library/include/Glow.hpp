@@ -21,4 +21,5 @@ class Glow : public Object
 
         void draw();
         void autoManage();
+        void swapSkin(bool state);
 };

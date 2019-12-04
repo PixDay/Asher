@@ -10,16 +10,15 @@
 
 Bullet::Bullet() :
     _direction({0.0f, 0.0f}),
-    _distance(1000.0f),
-    _skin(0),
+    _distance(400.0f),
+    _range(400.0f),
+    _skin(1),
     _skins({"image/shot/shotThin.png", "image/shot/shotLarge.png",
     "image/shot/shotOrange.png", "image/shot/shotRed.png"})
 {
-    //sf::Vector2f origin = {64.0f, 64.0f};
     sf::Vector2f scale = {0.4f, 0.4f};
 
     this->setTexture(this->_skins[this->_skin]);
-    //this->setOrigin(origin);
     this->setScale(scale);
     this->setDisplay(false);
     this->setSpeed(15.0f);
@@ -38,7 +37,7 @@ void Bullet::autoManage()
     this->_distance = this->_distance - (std::sqrt(this->_direction.x * this->_direction.x + this->_direction.y * this->_direction.y));
     if (this->_distance <= 0.0f) {
         this->setDisplay(false);
-        this->_distance = 1000.0f;
+        this->_distance = this->_range;
         this->_direction.x = 0.0f;
         this->_direction.y = 0.0f;
     }
@@ -48,4 +47,25 @@ void Bullet::autoManage()
 void Bullet::setDirection(sf::Vector2f const &direction)
 {
     this->_direction = direction;
+}
+
+void Bullet::setSkin(size_t skin)
+{
+    this->_skin = skin;
+    this->setTexture(this->_skins[this->_skin]);
+}
+
+size_t Bullet::getSkin() const
+{
+    return this->_skin;
+}
+
+void Bullet::setRange(float range)
+{
+    this->_range = range;
+}
+
+void Bullet::setDistance(float distance)
+{
+    this->_distance = distance;
 }

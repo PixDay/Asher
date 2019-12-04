@@ -21,7 +21,7 @@ class Object
         void setTexture(std::string const &string);
         void setPosition(sf::Vector2f const &position);
         void setPosition(sf::Vector2i const &position);
-        void setScale(sf::Vector2f const &scale);
+        void setScale(sf::Vector2f const &scale);  
         void setScale(sf::Vector2i const &scale);
         void setOrigin(sf::Vector2f const &origin);
         void setHitbox(sf::IntRect const &hitbox);
@@ -42,11 +42,11 @@ class Object
         bool hasAnimator(void) const;
         bool getDisplay(void) const;
 
-    /* UTILIIES */
+    /* UTILITIES */
         virtual void draw(void) = 0;
         virtual void autoManage() = 0;
         
-    private:
+    protected:
         sf::Sprite _sprite;
         sf::Texture _texture;
         sf::Vector2f _position;

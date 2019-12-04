@@ -11,5 +11,13 @@
 
 class SceneEnum
 {
-    enum MerlineScene {MENU, OPTION, GAME};
+    public :
+        enum MerlineScene 
+        {
+            MENU,
+            GAME,
+            OPTION,
+            SKIN,
+            PAUSE
+        };
 };

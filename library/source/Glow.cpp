@@ -28,3 +28,11 @@ void Glow::draw()
 void Glow::autoManage()
 {
 }
+
+void Glow::swapSkin(bool state)
+{
+    if (state)
+        this->setTexture("image/skin/glowSkinSpeed.png");
+    else
+        this->setTexture("image/skin/glowSkin.png");
+}

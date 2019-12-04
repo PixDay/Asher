@@ -1,23 +1,37 @@
 /*
 ** Merline, 2019
-** Boutton.hpp
+** Button.hpp
 ** File description:
-** Adrien Colombier
+** Thomas Daullé
 */
 
-#pragma once
+#ifndef BUTTON_HPP_
+#define BUTTON_HPP_
 
-/* INCLUDES */
+#include "Object.hpp"
 
-#include "Ui.hpp"
-
-/* CLASS */
-
-class Button : public Ui
+class Button : public Object
 {
     public:
-        virtual void onClick();
-        virtual void onHover();
+        Button(std::string const &path, sf::Vector2f position, sf::Vector2f scale, sf::IntRect hitbox);
+        ~Button() = default;
+
+        int onClick();
+        void onHover(std::string const &path);
+        void basicState();
+
+        std::string getTextureButton() const;
+        sf::Vector2f getScaleButton() const;
+        sf::Vector2f getPositionButton() const;
+    
     private:
-        std::string _name;
+        /* UTILITIES */
+        void draw();
+        void autoManage();
+
+        std::string _textureButton;
+        sf::Vector2f _scaleButton;
+        sf::Vector2f _positionButton;
 };
+
+#endif
