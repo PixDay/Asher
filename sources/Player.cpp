@@ -99,7 +99,14 @@ void Player::autoManage()
 
 void Player::updateCursor()
 {
-    this->_cursor->setPosition(this->_mouse.getPosition(*this->_window));
+    sf::Vector2f controller;
+
+    controller = (sf::Vector2f)this->_mouse.getPosition(*this->_window);
+
+    controller.x += (std::abs(sf::Joystick::getAxisPosition(0, sf::Joystick::U)) >= 40 ? sf::Joystick::getAxisPosition(0, sf::Joystick::U) / 5.0f : 0);
+    controller.y += (std::abs(sf::Joystick::getAxisPosition(0, sf::Joystick::V)) >= 40 ? sf::Joystick::getAxisPosition(0, sf::Joystick::V) / 5.0f : 0);
+    this->_mouse.setPosition((sf::Vector2i)controller);
+    this->_cursor->setPosition(controller);
 }
 
 void Player::updateTp()
@@ -113,7 +120,7 @@ void Player::updateTp()
     tmp.x = (tmp.x + this->getPosition().x) / 2;
     tmp.y = (tmp.y + this->getPosition().y) / 2;
     this->_tp->setPosition(tmp);
-    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyDash) && this->_tpClock.getElapsedTime().asSeconds() >= 2.0f) {
+    if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyDash) || sf::Joystick::getAxisPosition(0, sf::Joystick::Z) >= 30) && this->_tpClock.getElapsedTime().asSeconds() >= 2.0f) {
         this->setPosition(tmp);
         this->_dashSound.play();
         this->_tpClock.restart();
@@ -127,22 +134,22 @@ void Player::updateMove()
     sf::Vector2f position = this->getPosition();
 
     if (this->_moveClock.getElapsedTime().asSeconds() >= 0.008f) {
-        if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyLeft) && this->getPosition().x >= 50.0f) {
+        if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyLeft) || sf::Joystick::getAxisPosition(0, sf::Joystick::X) <= -50) && this->getPosition().x >= 50.0f) {
             position.x = position.x - (this->getSpeed() * ((this->_soundSpeed) ? 2.0f : 1.0f));
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyRight) && this->getPosition().x <= 1870.0f) {
+        if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyRight) || sf::Joystick::getAxisPosition(0, sf::Joystick::X) >= 50) && this->getPosition().x <= 1870.0f) {
             position.x = position.x + (this->getSpeed() * ((this->_soundSpeed) ? 2.0f : 1.0f));
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyBackward) && this->getPosition().y <= 1030) {
+        if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyBackward) || sf::Joystick::getAxisPosition(0, sf::Joystick::Y) >= 50) && this->getPosition().y <= 1030) {
             position.y += (this->getSpeed() * ((this->_soundSpeed) ? 2.0f : 1.0f));
             this->setPosition(position);
             this->_moveClock.restart();
         }
-        if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyForward) && this->getPosition().y >= 50.0f) {
+        if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyForward) || sf::Joystick::getAxisPosition(0, sf::Joystick::Y) <= -50) && this->getPosition().y >= 50.0f) {
             position.y -= (this->getSpeed() * ((this->_soundSpeed) ? 2.0f : 1.0f));
             this->setPosition(position);
             this->_moveClock.restart();
@@ -159,7 +166,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
+    if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::R) >= 0) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
         this->_shotSound.play();
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
@@ -213,7 +220,7 @@ void Player::rollBackSpell()
 {
     static size_t rollTurn = 0;
 
-    if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyRollBack) && !this->_rollback && this->_rollClock.getElapsedTime().asSeconds() >= 10.0f) {
+    if ((sf::Keyboard::isKeyPressed((sf::Keyboard::Key)this->_keyRollBack) || sf::Joystick::isButtonPressed(0, 2)) && !this->_rollback && this->_rollClock.getElapsedTime().asSeconds() >= 10.0f) {
         this->_rollback = true;
         this->_rollSound.play();
     }
@@ -236,7 +243,7 @@ void Player::rollBackSpell()
 
 void Player::changeWeapon()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) && this->_weaponClock.getElapsedTime().asSeconds() >= 0.75f) {
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) || sf::Joystick::isButtonPressed(0, 4)) && this->_weaponClock.getElapsedTime().asSeconds() >= 0.75f) {
         this->_weapon = (this->_weapon == 3) ? 0 : this->_weapon + 1;
         this->_switchSound.play();
         this->_weaponClock.restart();
