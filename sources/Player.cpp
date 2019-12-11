@@ -166,7 +166,7 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::R) >= 0) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
+    if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::R) >= 30) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
         this->_shotSound.play();
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
@@ -279,8 +279,11 @@ void Player::updateSpeed()
 
 void Player::updateEnnemy()
 {
+    sf::Vector2f position;
+
     for (auto ennemy : this->_ennemies) {
         ennemy->setAngle(this->getPosition());
+        ennemy->_target = this->getPosition();
     }
 
 }

@@ -19,4 +19,7 @@ class Ennemy : public Object
 
         void draw();
         void autoManage();
+        
+
+        sf::Vector2f _target;
 };
