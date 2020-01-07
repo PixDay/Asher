@@ -25,7 +25,7 @@ Ennemy::Ennemy()
     this->setScale(scale);
     this->setOrigin(origin);
     this->setTexture("image/ennemy/ennemy.png");
-    this->setSpeed((float)(std::rand() % 8000) / 3000.0f + 1.0f);
+    this->setSpeed((float)(std::rand() % 8000) / 5000.0f + 1.0f);
 }
 
 void Ennemy::draw()

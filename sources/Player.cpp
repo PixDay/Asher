@@ -63,7 +63,7 @@ Player::Player(ObjectManager &manager) :
         this->_bullets.push_back(new Bullet());
     for (size_t glow_number = 0; glow_number < this->_glow; glow_number++)
         this->_glows.push_back(new Glow());
-    for (size_t ennemies_number = 0; ennemies_number < 50; ennemies_number++)
+    for (size_t ennemies_number = 0; ennemies_number < 100; ennemies_number++)
         this->_ennemies.push_back(new Ennemy());
     for (auto glow : this->_glows)
         manager.addObject(glow);
