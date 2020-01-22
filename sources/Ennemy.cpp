@@ -36,20 +36,22 @@ void Ennemy::draw()
 
 void Ennemy::autoManage()
 {
-    if (this->getPosition().x < 0 && this->getPosition().y < 0)
-        this->setDisplay(false);
-    else {
-        if (this->_iaType == 0) {
-            this->Ia0();
-        }
-        else if (this->_iaType == 1) {
-            this->Ia1();
-        }
-        else if (this->_iaType == 2) {
-            this->Ia2();
-        }
-        else if (this->_iaType == 3) {
-            this->Ia3();
+    if (this->_fightOn == true) {
+        if (this->getPosition().x < 0 && this->getPosition().y < 0)
+            this->setDisplay(false);
+        else {
+            if (this->_iaType == 0) {
+                this->Ia0();
+            }
+            else if (this->_iaType == 1) {
+                this->Ia1();
+            }
+            else if (this->_iaType == 2) {
+                this->Ia2();
+            }
+            else if (this->_iaType == 3) {
+                this->Ia3();
+            }
         }
     }
 }

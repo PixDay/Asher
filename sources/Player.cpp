@@ -31,7 +31,8 @@ Player::Player(ObjectManager &manager) :
     _keyRight(sf::Keyboard::D),
     _keyLeft(sf::Keyboard::Q),
     _keyDash(sf::Keyboard::E),
-    _keyRollBack(sf::Keyboard::R)
+    _keyRollBack(sf::Keyboard::R),
+    _stageOn(false)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
@@ -81,6 +82,9 @@ void Player::autoManage()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         this->_manager->setScene(SceneEnum::MerlineScene::MENU);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+        this->_stageOn = true;
     }
     if (!this->_rollback) {
         this->updateMove();
@@ -281,10 +285,12 @@ void Player::updateEnnemy()
 {
     sf::Vector2f position;
 
-    if (this->_ennemies[0]->getFightOn() == false) {
+    if (this->_ennemies[0]->getFightOn() == false && this->_stageOn == true) { // remplacer le checking du mob 1 par tous les mobs avec un method dans le player
+        this->_stageOn = false;
         size_t i = 0;
         for (auto ennemy : this->_ennemies) {
             ennemy->setFightOn(true);
+            ennemy->addLvl();
             if (i < (10 + ennemy->getLvl()))
                 ennemy->setDisplay(true);
             i++;

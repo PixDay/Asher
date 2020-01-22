@@ -86,4 +86,6 @@ class Player : public Object
         std::vector<sf::Music *> _quoteSound;
         ObjectManager *_manager;
         std::vector<Ennemy *> _ennemies;
+        bool _stageOn;
+        
 };
