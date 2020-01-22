@@ -42,7 +42,7 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
-    this->setSpeed(5.5f);
+    this->setSpeed(6.5f);
     this->setDisplay(true);
     this->_shotSound.openFromFile("sound/spell/shot.wav");
     this->_rollSound.openFromFile("sound/spell/rollBack.ogg");
@@ -63,7 +63,7 @@ Player::Player(ObjectManager &manager) :
         this->_bullets.push_back(new Bullet());
     for (size_t glow_number = 0; glow_number < this->_glow; glow_number++)
         this->_glows.push_back(new Glow());
-    for (size_t ennemies_number = 0; ennemies_number < 100; ennemies_number++)
+    for (size_t ennemies_number = 0; ennemies_number < 70; ennemies_number++)
         this->_ennemies.push_back(new Ennemy());
     for (auto glow : this->_glows)
         manager.addObject(glow);
@@ -281,9 +281,20 @@ void Player::updateEnnemy()
 {
     sf::Vector2f position;
 
+    if (this->_ennemies[0]->getFightOn() == false) {
+        size_t i = 0;
+        for (auto ennemy : this->_ennemies) {
+            ennemy->setFightOn(true);
+            if (i < (10 + ennemy->getLvl()))
+                ennemy->setDisplay(true);
+            i++;
+        }
+    }
     for (auto ennemy : this->_ennemies) {
-        ennemy->setAngle(this->getPosition());
-        ennemy->_target = this->getPosition();
+        if (ennemy->_iaType == 0) {
+            ennemy->setAngle(this->getPosition());
+            ennemy->_target = this->getPosition();
+        }
     }
 
 }
