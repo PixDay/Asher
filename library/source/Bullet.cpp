@@ -22,6 +22,7 @@ Bullet::Bullet() :
     this->setScale(scale);
     this->setDisplay(false);
     this->setSpeed(15.0f);
+    this->_timeReload = 1.1f;
 }
 
 void Bullet::draw()
@@ -34,6 +35,16 @@ void Bullet::autoManage()
 
     tmp.x += this->_direction.x;
     tmp.y += this->_direction.y;
+    if (this->_skin == 3) {
+        if (tmp.x >= 1920.0f || tmp.x <= 0.0f) {
+            this->_direction.x *= -1.0f;
+            this->setAngle(360.0f - this->getAngle());
+        }
+        if (tmp.y >= 1080.0f || tmp.y <= 0.0f) {
+            this->_direction.y *= -1.0f;
+            this->setAngle(180.0f - this->getAngle());
+        }
+    }
     this->_distance = this->_distance - (std::sqrt(this->_direction.x * this->_direction.x + this->_direction.y * this->_direction.y));
     if (this->_distance <= 0.0f) {
         this->setDisplay(false);

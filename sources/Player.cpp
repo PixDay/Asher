@@ -32,7 +32,8 @@ Player::Player(ObjectManager &manager) :
     _keyLeft(sf::Keyboard::Q),
     _keyDash(sf::Keyboard::E),
     _keyRollBack(sf::Keyboard::R),
-    _stageOn(false)
+    _stageOn(false),
+    _alive(true)
 {
     sf::Vector2f origin = {150.0f, 150.0f};
     sf::Vector2f position = {200.0f, 200.0f};
@@ -43,7 +44,7 @@ Player::Player(ObjectManager &manager) :
     this->setTexture(this->_skins[this->_skin]);
     this->setOrigin(origin);
     this->setScale(scale);
-    this->setSpeed(6.5f);
+    this->setSpeed(12.5f);
     this->setDisplay(true);
     this->_shotSound.openFromFile("sound/spell/shot.wav");
     this->_rollSound.openFromFile("sound/spell/rollBack.ogg");
@@ -53,7 +54,6 @@ Player::Player(ObjectManager &manager) :
     this->_cursor = new Cursor();
     this->_tp = new BlackHole();
     this->_window = manager.getWindow();
-    manager.addObject(this->_cursor);
     manager.addObject(this->_tp);
     for (auto quote : this->_quotes) {
         sf::Music *tmp = new sf::Music();
@@ -68,10 +68,11 @@ Player::Player(ObjectManager &manager) :
         this->_ennemies.push_back(new Ennemy());
     for (auto glow : this->_glows)
         manager.addObject(glow);
-    for (auto bullet : this->_bullets)
-        manager.addObject(bullet);
     for (auto ennemy : this->_ennemies)
         manager.addObject(ennemy);
+    for (auto bullet : this->_bullets)
+        manager.addObject(bullet);
+    manager.addObject(this->_cursor);
 }
 
 void Player::draw()
@@ -80,7 +81,7 @@ void Player::draw()
 
 void Player::autoManage()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || this->_alive == false) {
         this->_manager->setScene(SceneEnum::MerlineScene::MENU);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
@@ -93,6 +94,7 @@ void Player::autoManage()
         this->updateBullet(this->_cursor->getPosition());
         this->updateGlow();
         this->updateSpeed();
+        this->checkAlive();
     }
     this->updateTp();
     this->changeWeapon();
@@ -170,29 +172,34 @@ void Player::updateBullet(sf::Vector2f const &cursor)
     for (size_t bullet_number = 0; bullet_number < this->_shoot; bullet_number++)
         if (this->_bullets[bullet_number]->getDisplay() == false)
             this->_bullets[this->_currentBullet]->setPosition(this->getPosition());
-    if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::R) >= 30) && this->_shootClock.getElapsedTime().asSeconds() >= 0.1f) {
+    if ((sf::Mouse::isButtonPressed(sf::Mouse::Left) || sf::Joystick::getAxisPosition(0, sf::Joystick::R) >= 30) && 
+    this->_shootClock.getElapsedTime().asSeconds() >= this->_bullets[(this->_currentBullet != 0) ? this->_currentBullet - 1 : this->_shoot - 1]->_timeReload) {
         this->_shotSound.play();
         this->_bullets[this->_currentBullet]->setAngle(this->getAngle());
         this->_bullets[this->_currentBullet]->setDisplay(true);
         if (this->_weapon == 0) {
-            this->_bullets[this->_currentBullet]->setRange(400.0f);
-            this->_bullets[this->_currentBullet]->setDistance(400.0f);
-            this->_bullets[this->_currentBullet]->setSpeed(40.0f);
+            this->_bullets[this->_currentBullet]->setRange(500.0f);
+            this->_bullets[this->_currentBullet]->setDistance(500.0f);
+            this->_bullets[this->_currentBullet]->setSpeed(50.0f);
+            this->_bullets[this->_currentBullet]->_timeReload = 0.05f;
         }
         if (this->_weapon == 1) {
-            this->_bullets[this->_currentBullet]->setRange(600.0f);
-            this->_bullets[this->_currentBullet]->setDistance(600.0f);
-            this->_bullets[this->_currentBullet]->setSpeed(25.0f);
+            this->_bullets[this->_currentBullet]->setRange(1000.0f);
+            this->_bullets[this->_currentBullet]->setDistance(1000.0f);
+            this->_bullets[this->_currentBullet]->setSpeed(30.0f);
+            this->_bullets[this->_currentBullet]->_timeReload = 0.5f;
         }
         if (this->_weapon == 2) {
             this->_bullets[this->_currentBullet]->setRange(800.0f);
             this->_bullets[this->_currentBullet]->setDistance(800.0f);
             this->_bullets[this->_currentBullet]->setSpeed(18.0f);
+            this->_bullets[this->_currentBullet]->_timeReload = 0.3f;
         }
         if (this->_weapon == 3) {
-            this->_bullets[this->_currentBullet]->setRange(1000.0f);
-            this->_bullets[this->_currentBullet]->setDistance(1000.0f);
-            this->_bullets[this->_currentBullet]->setSpeed(15.0f);
+            this->_bullets[this->_currentBullet]->setRange(5000.0f);
+            this->_bullets[this->_currentBullet]->setDistance(5000.0f);
+            this->_bullets[this->_currentBullet]->setSpeed(50.0f);
+            this->_bullets[this->_currentBullet]->_timeReload = 0.2f;
         }
         float somme = std::abs((tmpC.x - tmpV.x)) + std::abs((tmpC.y - tmpV.y));
         res.x = (tmpC.x - tmpV.x) / somme * this->_bullets[this->_currentBullet]->getSpeed();
@@ -266,7 +273,6 @@ void Player::updateQuote()
         this->_quoteSound[3]->play();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
         this->_quoteSound[4]->play();
-    
 }
 
 void Player::updateSpeed()
@@ -284,25 +290,86 @@ void Player::updateSpeed()
 void Player::updateEnnemy()
 {
     sf::Vector2f position;
+    
+    if (this->_stageOn == false && this->isFightOn() == false) {
+       size_t i = 0;
+        for (auto ennemy : this->_ennemies) {
+            if (i < (10 + ennemy->getLvl()))
+                ennemy->setDisplay(true);
+            i++;
+        }
+   }
 
-    if (this->_ennemies[0]->getFightOn() == false && this->_stageOn == true) { // remplacer le checking du mob 1 par tous les mobs avec un method dans le player
+    if (this->isFightOn() == false && this->_stageOn == true) {
         this->_stageOn = false;
         size_t i = 0;
         for (auto ennemy : this->_ennemies) {
             ennemy->setFightOn(true);
             ennemy->addLvl();
-            if (i < (10 + ennemy->getLvl()))
+            if (i < (10 + ennemy->getLvl())) {
                 ennemy->setDisplay(true);
+                ennemy->setFightOn(true);
+            }
+            else
+                ennemy->setFightOn(false);
             i++;
         }
     }
     for (auto ennemy : this->_ennemies) {
+        if (ennemy->getDisplay())
+            if (this->ennemyKilled(ennemy->getPosition(), ennemy->getHitbox())) { // colide a missile
+                ennemy->setDisplay(false);
+                ennemy->setFightOn(false);
+            }
         if (ennemy->_iaType == 0) {
             ennemy->setAngle(this->getPosition());
             ennemy->_target = this->getPosition();
         }
     }
+    if (this->isFightOn() == false && this->_stageOn == true) {
+        this->_stageOn = false;
+        for (auto ennemy : this->_ennemies) {
+            ennemy->addLvl();
+        }
+    }
+}
 
+bool Player::isFightOn()
+{
+
+    for (auto ennemy : this->_ennemies) {
+        if (ennemy->getFightOn() == true)
+            return true;
+    }
+    return false;
+}
+
+bool Player::ennemyKilled(sf::Vector2f const &position, sf::IntRect const &hitbox) const
+{
+    sf::IntRect rect = {(int)position.x - 25, (int)position.y - 25, (int)hitbox.width, (int)hitbox.height};
+
+    for (auto missile : this->_bullets)
+        if (rect.contains((int)missile->getPosition().x, (int)missile->getPosition().y) && missile->getDisplay()) {
+            missile->setDisplay(false);
+            return true;
+        }
+    return false;
+}
+
+void Player::checkAlive()
+{
+    sf::IntRect rect;
+
+    for (auto ennemy : this->_ennemies) {
+        rect.left = (int)ennemy->getPosition().x - 25;
+        rect.top = (int)ennemy->getPosition().y - 25;
+        rect.width = (int)ennemy->getHitbox().width;
+        rect.height = (int)ennemy->getHitbox().height;
+        if (rect.contains((int)this->getPosition().x, (int)this->getPosition().y) && ennemy->getDisplay() && this->_stageOn) {
+            this->setDisplay(false);
+            this->_alive = false;
+        }
+    }
 }
 
 void Player::setForward(size_t forward)

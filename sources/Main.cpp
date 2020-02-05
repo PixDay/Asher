@@ -10,6 +10,7 @@
 int main(int argc, char **argv, char **env)
 {
     (void)argc, (void)argv, (void)env;
+    std::srand(std::time(nullptr));
     ObjectManager manager("R-Type");
     MapManager map(manager);
     sf::Event event;

@@ -11,6 +11,7 @@ Ennemy::Ennemy()
 {
     sf::Vector2f scale = {0.4f, -0.4f};
     sf::Vector2f origin = {64.0f, 71.0f};
+    sf::IntRect hitbox = {0, 0, (int)std::abs(128.0f * scale.x + 1.0f), (int)std::abs(142.0f * scale.y + 1.0f)};
 
     this->_iaType = std::rand() % 4;
     this->_lvl = 1;
@@ -18,6 +19,7 @@ Ennemy::Ennemy()
     this->setDisplay(true);
     this->setScale(scale);
     this->setOrigin(origin);
+    this->setHitbox(hitbox);
     this->setDisplay(false);
     if (this->_iaType == 0)
         this->setIa0();
@@ -84,7 +86,7 @@ void Ennemy::setIa0()
     position.y = (std::rand() % 3000) + 1080;
     this->setPosition(position);
     this->setTexture("image/ennemy/ennemy.png");
-    this->setSpeed(2.0f);
+    this->setSpeed(6.0f);
 }
 
 void Ennemy::setIa1()
@@ -102,7 +104,7 @@ void Ennemy::setIa1()
     this->setAngle(angle);
     this->setPosition(position);
     this->setTexture("image/ennemy/ennemy1.png");
-    this->setSpeed(static_cast<float>(std::rand() % 4) + 5.0f);
+    this->setSpeed(static_cast<float>(std::rand() % 4) + 12.0f);
 }
 
 void Ennemy::setIa2()
@@ -115,7 +117,7 @@ void Ennemy::setIa2()
     this->_target.y = std::rand() % 1080;
     this->setPosition(position);
     this->setTexture("image/ennemy/ennemy2.png");
-    this->setSpeed(8.0f);
+    this->setSpeed(11.0f);
 }
 
 void Ennemy::setIa3()
@@ -126,9 +128,9 @@ void Ennemy::setIa3()
     sf::Vector2f p2;
     sf::Vector2f p3;
 
-    position.x = std::rand() % 1920;
-    position.y = std::rand() % 1080;
-    this->_rayon = (std::rand() % 400) + 100;
+    position.x = (std::rand() % 1420) + 500;
+    position.y = (std::rand() % 580) + 500;
+    this->_rayon = (std::rand() % 400) + 150;
     p0.x = position.x; p0.y = position.y - _rayon;
     p1.x = position.x - _rayon; p1.y = position.y;
     p2.x = position.x; p2.y = position.y + _rayon;
@@ -141,7 +143,7 @@ void Ennemy::setIa3()
     this->_target = p0;
     this->setPosition(position);
     this->setTexture("image/ennemy/ennemy3.png");
-    this->setSpeed(5.0f);
+    this->setSpeed(12.5f);
 }
 
 void Ennemy::Ia0()

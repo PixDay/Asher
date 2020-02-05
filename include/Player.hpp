@@ -40,6 +40,9 @@ class Player : public Object
         void updateQuote();
         void updateSpeed();
         void updateEnnemy();
+        bool isFightOn();
+        bool ennemyKilled(sf::Vector2f const &position, sf::IntRect const &hitbox) const;
+        void checkAlive();
 
         size_t getForward() const;
         size_t getBackward() const ;
@@ -87,5 +90,5 @@ class Player : public Object
         ObjectManager *_manager;
         std::vector<Ennemy *> _ennemies;
         bool _stageOn;
-        
+        bool _alive;
 };

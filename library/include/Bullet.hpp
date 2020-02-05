@@ -26,6 +26,7 @@ class Bullet : public Object
         void setRange(float range);
         void setDistance(float distance);
         size_t getSkin() const;
+        float _timeReload;
     private:
         sf::Vector2f _direction;
         float _distance;
