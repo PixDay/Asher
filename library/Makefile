@@ -18,7 +18,8 @@ SRCS	=	source/Object.cpp 			\
 			source/Button.cpp			\
 			source/Icon.cpp				\
 			source/Text.cpp				\
-			source/FakeBullet.cpp
+			source/FakeBullet.cpp		\
+			source/Star.cpp
 
 OBJ	=	${SRCS:.cpp=.o}
 

@@ -13,6 +13,7 @@
 #include "Object.hpp"
 #include "ObjectManager.hpp"
 #include "Tile.hpp"
+#include "Star.hpp"
 
 /* CLASS */
 
@@ -23,4 +24,5 @@ class MapManager
         ~MapManager() = default;
     private:
         std::vector<Tile *> _tiles;
+        std::vector<Star *> _stars;
 };

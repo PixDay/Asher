@@ -13,3 +13,4 @@
 #include "Friend.hpp"
 #include "FakeBullet.hpp"
 #include "Ennemy.hpp"
+#include "Star.hpp"

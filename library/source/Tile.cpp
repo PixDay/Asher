@@ -9,7 +9,7 @@
 
 Tile::Tile()
 {
-    this->setTexture("image/tile/tileGrass1.png");
+    this->setTexture("image/tile/black_tile.png");
     this->setDisplay(true);
 }
 
