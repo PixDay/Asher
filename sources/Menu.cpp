@@ -7,7 +7,7 @@
 
 #include "Menu.hpp"
 
-Menu::Menu(ObjectManager *manager):
+Menu::Menu(ObjectManager *manager, Player *player):
     _volume(50)
 {
     sf::Vector2f position = {50.0f, 500.0f};
@@ -62,6 +62,7 @@ Menu::Menu(ObjectManager *manager):
     this->setOrigin(position);
     this->setScale(scale);
     this->setDisplay(true);
+    this->_player = player;
 }
 
 void Menu::draw()
@@ -133,8 +134,13 @@ void Menu::updateButton()
     else
         _buttonJoin->basicState();
 
-    if (_buttonCreate->getHitbox().contains(this->_mouse.getPosition(*this->_window)))
+    if (_buttonCreate->getHitbox().contains(this->_mouse.getPosition(*this->_window))) {
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _buttonCreate->getHitbox().contains(this->_mouse.getPosition(*this->_window))) {
+            
+            _manager->setScene(SceneEnum::MerlineScene::GAME);
+        }
         _buttonCreate->onHover("image/Menu/create.jpg");
+    }
     else
         _buttonCreate->basicState();
 }

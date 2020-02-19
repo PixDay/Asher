@@ -5,17 +5,17 @@
 ** Thomas Daullé
 */
 
-#ifndef MENU_HPP_
-#define MENU_HPP_
+#pragma once
 
 #include <iostream>
 #include "../library/include/merline.h"
+#include "Player.hpp"
 
 class Menu : public Object
 {
     public:
 
-        Menu(ObjectManager *manager);
+        Menu(ObjectManager *manager, Player *player);
         ~Menu() = default;
 
         /* UTILITIES */
@@ -29,6 +29,7 @@ class Menu : public Object
         void updateButton();
 
         ObjectManager *_manager;
+        Player *_player;
         sf::RenderWindow *_window;
         sf::Mouse _mouse;
 
@@ -47,5 +48,3 @@ class Menu : public Object
         Button *_buttonJoin;
         Button *_buttonCreate;
 };
-
-#endif

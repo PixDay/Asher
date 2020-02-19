@@ -81,6 +81,8 @@ void Player::draw()
 
 void Player::autoManage()
 {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        this->writeSave();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || this->_alive == false) {
         this->_manager->setScene(SceneEnum::MerlineScene::MENU);
     }
@@ -306,7 +308,7 @@ void Player::updateEnnemy()
         for (auto ennemy : this->_ennemies) {
             ennemy->setFightOn(true);
             ennemy->addLvl();
-            if (i < (10 + ennemy->getLvl())) {
+            if (i < (5 + ennemy->getLvl())) {
                 ennemy->setDisplay(true);
                 ennemy->setFightOn(true);
             }
@@ -430,4 +432,20 @@ size_t Player::getDash() const
 size_t Player::getRollBack() const
 {
     return this->_keyRollBack;
+}
+
+void Player::readSave()
+{
+    std::ifstream file(".ashersave");
+    std::string lvl;
+
+    std::getline(file, lvl);
+    std::cout << "lvl = " << lvl << std::endl;
+    file.close();
+}
+
+void Player::writeSave()
+{
+    std::string save = "echo " + std::to_string(this->_ennemies[0]->getLvl()) + " > .ashersave";
+    system(save.c_str());
 }

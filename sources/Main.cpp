@@ -11,12 +11,12 @@ int main(int argc, char **argv, char **env)
 {
     (void)argc, (void)argv, (void)env;
     std::srand(std::time(nullptr));
-    ObjectManager manager("R-Type");
+    ObjectManager manager("Asher");
     MapManager map(manager);
     sf::Event event;
     
     Player *player = new Player(manager);
-    Menu *menu = new Menu(&manager);
+    Menu *menu = new Menu(&manager, player);
     manager.addObject(player);
     manager.addObjectMenu(menu);
     manager.addObjectOption(new Option(&manager, menu, player));

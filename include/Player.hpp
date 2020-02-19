@@ -11,6 +11,8 @@
 #include <vector>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "../library/include/merline.h"
 
 class Player : public Object
@@ -28,7 +30,9 @@ class Player : public Object
         void setLeft(size_t left);
         void setDash(size_t dash);
         void setRollBack(size_t rollBack);
-        
+        void readSave();
+        void writeSave();
+
     private:
         void updateCursor();
         void updateTp();
